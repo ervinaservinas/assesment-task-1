@@ -31,10 +31,11 @@ func TestRomanNumeral(t *testing.T) {
 		{"1984  to MCMLXXXIV", 1984, "MCMLXXXIV"},
 		{"3999 to MMMCMXCIX", 3999, "MMMCMXCIX"},
 	}
+
 	for _, testCase := range testCases {  // taking range from testCases
 		t.Run(testCase.name, func(t *testing.T) {  // testing each test range
 			actual := converter.RomanNumeral(testCase.decimal)
-			if actual != testCase.expected {
+			if actual != testCase.expected { // if result is not whats expected give error
 				t.Errorf("Expected Roman numeral for %d to be %s, but got %s", testCase.decimal, testCase.expected, actual)
 			}
 		})
