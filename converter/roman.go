@@ -2,7 +2,7 @@ package converter
 
 func RomanNumeral(decimal int) string {
 
-	numerals := []struct { // I found struck
+	numerals := []struct { // I found struct
 		Symbol string
 		Value  int
 	}{
@@ -21,7 +21,7 @@ func RomanNumeral(decimal int) string {
 		{"I", 1},
 	}
 	romanValue := ""
-	for _, numeral := range numerals {
+	for _, numeral := range numerals { // as from documentation understoon _, is blank identifier
 		for decimal >= numeral.Value {
 			decimal -= numeral.Value
 			romanValue += numeral.Symbol
