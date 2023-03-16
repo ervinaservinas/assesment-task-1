@@ -12,12 +12,12 @@ func main() {
     fmt.Print("Decimal number you wish to convert: ")
     fmt.Scan(&decimal) // reading input value
 
-   romanValue, err := roman.RomanNumeral(decimal) // checking if the imput is good
+   romanValue, err := roman.RomanNumeral(decimal) 
     if err != nil {
         fmt.Println("Error:", err)
         return
     }
 
     time.Sleep(1 * time.Second)
-    fmt.Println("Result of Roman numeral is", romanValue)
+    fmt.Println("Result of Roman numeral is", romanValue) 
 }
