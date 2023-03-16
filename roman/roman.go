@@ -1,7 +1,12 @@
-package converter
+package roman
 
-func RomanNumeral(decimal int) string {
+import "fmt"
 
+func RomanNumeral(decimal int) (string, error) {
+
+	if decimal <= 0 || decimal > 3999 {  // validation for correct input.
+		return "", fmt.Errorf("decimal number should be between 0 and 3999") 
+	}
 	numerals := []struct { // I found struct
 		Symbol string
 		Value  int
@@ -27,5 +32,5 @@ func RomanNumeral(decimal int) string {
 			romanValue += numeral.Symbol
 		}
 	}
-	return romanValue
+	return romanValue , nil
 }
