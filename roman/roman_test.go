@@ -6,53 +6,55 @@ import (
 
 func TestRomanNumeral(t *testing.T) {
 	testCases := []struct {
-		name     string
-		decimal  int
-		expected string
+		decimal        int
+		expected       string
+		expectError    bool
 	}{
-        {"Negative numbers", -1, ""},
-        {"Negative numbers", -3, ""},
-		{"Negative numbers", -7, ""},
-		{"Negative numbers", -8, ""},
-		{"1  to I", 1, "I"},
-		{"2 to II", 2, "II"},
-		{"3 to III", 3, "III"},
-		{"4  to IV", 4, "IV"},
-		{"5 to V", 5, "V"},
-		{"6 to VI", 6, "VI"},
-		{"7 to VII", 7, "VII"},
-		{"8 to VIII", 8, "VIII"},
-		{"9  to IX", 9, "IX"},
-		{"10  to X", 10, "X"},
-		{"14 to XIV", 14, "XIV"},
-		{"15 to XV", 15, "XV"},
-		{"16 to XVI", 16, "XVI"},
-		{"39 to XXXIX", 39, "XXXIX"},
-		{"40  to XL", 40, "XL"},
-		{"49 to XLIX", 49, "XLIX"},
-		{"50  to L", 50, "L"},
-		{"90  to XC", 90, "XC"},
-		{"99 to XCIX", 99, "XCIX"},
-		{"100  to C", 100, "C"},
-		{"400  to CD", 400, "CD"},
-		{"500  to D", 500, "D"},
-		{"900  to CM", 900, "CM"},
-		{"1000  to M", 1000, "M"},
-		{"4000 to empty string", 4000, ""},
-		{"1984  to MCMLXXXIV", 1984, "MCMLXXXIV"},
-		{"3999 to MMMCMXCIX", 3999, "MMMCMXCIX"},
-		{"0 to empty string", 0, ""},
-		{"1000000 to empty string", 1000000, ""},
-		{"4999 to empty string", 4999, ""},
-		{"-4000 to empty string", -4000, ""},
-		{"-1000000 to empty string", -1000000, ""},
-		{"-4999 to empty string", -4999, ""},
+		{-1, "", true},
+		{-3, "", true},
+		{-7, "", true},
+		{-8, "", true},
+		{1, "I", false},
+		{2, "II", false},
+		{3, "III", false},
+		{4, "IV", false},
+		{5, "V", false},
+		{6, "VI", false},
+		{7, "VII", false},
+		{8, "VIII", false},
+		{9, "IX", false},
+		{10, "X", false},
+		{14, "XIV", false},
+		{15, "XV", false},
+		{16, "XVI", false},
+		{39, "XXXIX", false},
+		{40, "XL", false},
+		{49, "XLIX", false},
+		{50, "L", false},
+		{90, "XC", false},
+		{99, "XCIX", false},
+		{100, "C", false},
+		{400, "CD", false},
+		{500, "D", false},
+		{900, "CM", false},
+		{1000, "M", false},
+		{4000, "", true},
+		{1984, "MCMLXXXIV", false},
+		{3999, "MMMCMXCIX", false},
+		{0, "", true},
+		{1000000, "", true},
+		{4999, "", true},
+		{-4000, "", true},
+		{-1000000, "", true},
+		{-4999, "", true},
 	}
 
 	for _, testCase := range testCases {
-		actual, _ := RomanNumeral(testCase.decimal)
-		if actual != testCase.expected {
-			t.Errorf("Test case %s failed: expected %s but got %s", testCase.name, testCase.expected, actual)
+		actual, err := RomanNumeral(testCase.decimal)
+		if (err != nil && !testCase.expectError) || (err == nil && testCase.expectError) {
+			t.Errorf("Test case failed: expected error: %t, actual error: %v", testCase.expectError, err)
+		} else if actual != testCase.expected {
+			t.Errorf("Test case failed: input: %d, expected: %s, actual: %s", testCase.decimal, testCase.expected, actual)
 		}
 	}
 }
